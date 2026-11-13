@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小鱼的动态表情包 · 云端图床</title>
+<style>
+  :root{
+    --bg:#f4f8f9; --card:#ffffff; --line:#dbe7ea; --ink:#1d3b3f; --muted:#6b8a8f; --acc:#1d9e75;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:32px 20px 56px;background:var(--bg);color:var(--ink);
+       font-family:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:26px;font-weight:600;margin:0 0 6px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 6px}
+  .badge{display:inline-block;margin:14px 8px 0 0;padding:5px 12px;border-radius:20px;
+         background:#e1f5ee;color:#0f6e56;font-size:12.5px;border:1px solid #b8e6d5}
+  .badge.warn{background:#faeeda;color:#854f0b;border-color:#f0d5a8}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:28px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+        display:flex;flex-direction:column;transition:transform .15s ease, box-shadow .15s ease}
+  .card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(29,158,117,.14)}
+  .thumb{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+         background:#eef5f6;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:contain}
+  .meta{padding:10px 12px 12px;border-top:1px solid var(--line)}
+  .no{font-size:11.5px;color:var(--muted);letter-spacing:.5px}
+  .name{font-size:14px;font-weight:500;margin-top:2px}
+  .mood{font-size:12px;color:var(--acc);margin-top:2px}
+  .link{display:block;margin-top:8px;font-size:11px;color:var(--muted);text-decoration:none;
+        word-break:break-all;border-top:1px dashed var(--line);padding-top:6px;line-height:1.45}
+  .link:hover{color:var(--acc)}
+  footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);
+         font-size:12px;color:var(--muted);line-height:1.8}
+  code{background:#eef5f6;padding:1px 5px;border-radius:4px;font-size:11.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>小鱼的动态表情包</h1>
+  <p class="sub">GitHub 公开仓库 + jsDelivr CDN 直链 · 2026-11-13 上线 · 12 张动图</p>
+  <span class="badge">在家 ✓ 公司 ✓ 手机 ✓</span>
+  <span class="badge warn">链接域名用 gcore.jsdelivr.net</span>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    仓库：<a href="https://github.com/Agoni-xiaoyu/xiaoyu-emoticons" target="_blank">Agoni-xiaoyu/xiaoyu-emoticons</a><br>
+    CDN 前缀：<code>https://gcore.jsdelivr.net/gh/Agoni-xiaoyu/xiaoyu-emoticons@main/gif/</code><br>
+    素材 CC BY-NC · 作者：B站「可以叫我云大人」· 仅个人非商业使用<br>
+    注：<code>cdn.jsdelivr.net</code> 在广州移动宽带下 SSL 不通，请勿替换域名。
+  </footer>
+</div>
+
+<script>
+const base = "https://gcore.jsdelivr.net/gh/Agoni-xiaoyu/xiaoyu-emoticons@main/gif/";
+const list = [
+  ["011","摸鱼","划水"],["012","钓鱼","等待"],["013","理理我嘛","撒娇"],
+  ["014","WATCHING YOU","查岗"],["015","穷","吃土"],["016","肝不动了","累瘫"],
+  ["017","我也要死么","被波及"],["018","拔线","下线"],["019","你这白吃饭的猫","回怼"],
+  ["020","灵光一闪","顿悟"],["021","哈欠","困了"],["022","刷牙","洗漱"]
+];
+const grid = document.getElementById("grid");
+list.forEach(([no,name,mood])=>{
+  const file = no + "_" + (no==="014" ? "WATCHING_YOU" : name) + ".gif";
+  const url = base + file;
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML =
+    '<div class="thumb"><img src="'+url+'" alt="'+name+'" loading="lazy" ' +
+    'onerror="this.parentNode.innerHTML=\'<span style=color:#a32d2d;font-size:12px>加载失败</span>\'"></div>' +
+    '<div class="meta"><div class="no">'+no+'</div>' +
+    '<div class="name">'+name+'</div>' +
+    '<div class="mood">'+mood+'</div>' +
+    '<a class="link" href="'+url+'" target="_blank">复制直链 ↗</a></div>';
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>
